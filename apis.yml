@@ -90,6 +90,16 @@ common:
   url: rate-limits/dialpad-rate-limits.yml
 - type: FinOps
   url: finops/dialpad-finops.yml
+- type: Integrations
+  url: https://www.dialpad.com/integrations/
+integrations:
+  - name: United States flag
+  - name: Dialpad
+  - name: A smiling woman
+  - name: A man using his mobile device
+  - name: Eight people on a meeting
+  - name: A hand holding a mobile device
+  - name: A woman talking on the phone
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
