@@ -1,7 +1,7 @@
 aid: dialpad
 url: https://raw.githubusercontent.com/api-evangelist/dialpad/refs/heads/main/apis.yml
 name: Dialpad
-x-type: company
+kind: company
 description: Dialpad is an AI-powered cloud communications platform offering business phone, contact center, video, and messaging.
   Notable for Dialpad Ai (real-time transcription, sentiment, coaching).
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
