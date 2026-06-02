@@ -12,7 +12,7 @@ tags:
   - Contact Center
   - UCaaS
 created: '2026-05-08'
-modified: '2026-05-08'
+modified: '2026-05-30'
 specificationVersion: '0.19'
 apis:
   - name: Dialpad Calls API
@@ -81,6 +81,8 @@ apis:
     properties:
     - type: Documentation
       url: https://developers.dialpad.com/reference
+    - type: AsyncAPI
+      url: openapi/dialpad-asyncapi.yml
 common:
   - type: GitHubOrganization
     url: https://github.com/dialpad

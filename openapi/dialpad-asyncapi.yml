@@ -1,0 +1,444 @@
+asyncapi: 2.6.0
+info:
+  title: Dialpad Webhook Events API
+  version: "1.0.0"
+  description: |
+    AsyncAPI specification modeling Dialpad's webhook event subscriptions.
+    Dialpad delivers events as HTTP POST requests to a customer-supplied
+    hook_url. When a webhook is created with a `secret`, payloads are JWT
+    encoded (HS256); otherwise payloads are delivered as plain JSON.
+
+    Subscription types modeled here:
+      - Call Event Subscription          (call.*)
+      - SMS Event Subscription           (message.*)
+      - Agent Status Event Subscription  (agent_status.*)
+      - Contact Event Subscription       (contact.*)
+      - Change Log Event Subscription    (change_log.*)
+
+    Sources: https://developers.dialpad.com (llms.txt + event docs).
+  contact:
+    name: Dialpad Developers
+    url: https://developers.dialpad.com
+  license:
+    name: Proprietary
+    url: https://www.dialpad.com/legal/
+
+defaultContentType: application/json
+
+servers:
+  consumer:
+    url: "{hook_url}"
+    protocol: https
+    description: |
+      Customer-supplied webhook endpoint registered via
+      POST /api/v2/webhooks (field `hook_url`). One webhook can be shared
+      across multiple event subscriptions.
+    variables:
+      hook_url:
+        description: The fully-qualified HTTPS URL Dialpad will POST events to.
+        default: https://example.com/dialpad/webhook
+
+channels:
+  call-events:
+    description: |
+      Call lifecycle events delivered to the registered webhook when a Call
+      Event Subscription matches. Subscription is managed via
+      POST /api/v2/subscriptions/call.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: receiveCallEvent
+      summary: Receive a Dialpad call event.
+      message:
+        $ref: '#/components/messages/CallEvent'
+
+  sms-events:
+    description: |
+      SMS / MMS message events delivered when an SMS Event Subscription
+      matches. Subscription is managed via POST /api/v2/subscriptions/sms.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: receiveSmsEvent
+      summary: Receive a Dialpad SMS / MMS event.
+      message:
+        $ref: '#/components/messages/SmsEvent'
+
+  agent-status-events:
+    description: |
+      Call-center agent status change events delivered when an Agent Status
+      Event Subscription matches. Subscription is managed via
+      POST /api/v2/subscriptions/agent_status.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: receiveAgentStatusEvent
+      summary: Receive a Dialpad agent status change event.
+      message:
+        $ref: '#/components/messages/AgentStatusEvent'
+
+  contact-events:
+    description: |
+      Contact create / update / delete events delivered when a Contact Event
+      Subscription matches. Subscription is managed via
+      POST /api/v2/subscriptions/contact.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: receiveContactEvent
+      summary: Receive a Dialpad contact event.
+      message:
+        $ref: '#/components/messages/ContactEvent'
+
+  change-log-events:
+    description: |
+      Change log events tracking modifications across the Dialpad company
+      environment. Subscription is managed via
+      POST /api/v2/subscriptions/changelog. Requires the `change_log` OAuth
+      scope.
+    bindings:
+      http:
+        type: request
+        method: POST
+    subscribe:
+      operationId: receiveChangeLogEvent
+      summary: Receive a Dialpad change log event.
+      message:
+        $ref: '#/components/messages/ChangeLogEvent'
+
+components:
+  messages:
+    CallEvent:
+      name: CallEvent
+      title: Call Event
+      summary: Notifies of a state change in a Dialpad call.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/CallEventPayload'
+
+    SmsEvent:
+      name: SmsEvent
+      title: SMS / MMS Event
+      summary: Notifies of an SMS or MMS message event.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/SmsEventPayload'
+
+    AgentStatusEvent:
+      name: AgentStatusEvent
+      title: Agent Status Event
+      summary: Notifies of a call-center agent status change.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/AgentStatusEventPayload'
+
+    ContactEvent:
+      name: ContactEvent
+      title: Contact Event
+      summary: Notifies of a contact created, updated, or deleted.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ContactEventPayload'
+
+    ChangeLogEvent:
+      name: ChangeLogEvent
+      title: Change Log Event
+      summary: Notifies of a configuration / administrative change in Dialpad.
+      contentType: application/json
+      payload:
+        $ref: '#/components/schemas/ChangeLogEventPayload'
+
+  schemas:
+    Target:
+      type: object
+      description: A Dialpad entity (user, group, room, etc.) involved in an event.
+      properties:
+        id:
+          type: integer
+          format: int64
+        type:
+          type: string
+          enum:
+            - callcenter
+            - callrouter
+            - channel
+            - coachinggroup
+            - coachingteam
+            - department
+            - office
+            - room
+            - staffgroup
+            - unknown
+            - user
+        name:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+
+    Contact:
+      type: object
+      description: An external contact party in an event.
+      properties:
+        id:
+          type: string
+        type:
+          type: string
+          enum:
+            - google
+            - local
+            - microsoft
+            - shared
+            - all
+        first_name:
+          type: string
+        last_name:
+          type: string
+        display_name:
+          type: string
+        phones:
+          type: array
+          items:
+            type: string
+        primary_phone:
+          type: string
+        emails:
+          type: array
+          items:
+            type: string
+        primary_email:
+          type: string
+        company_name:
+          type: string
+        job_title:
+          type: string
+        urls:
+          type: array
+          items:
+            type: string
+        trunk_group:
+          type: string
+        extension:
+          type: string
+
+    CallEventPayload:
+      type: object
+      description: |
+        Payload delivered for call lifecycle state changes. Fields documented
+        at https://developers.dialpad.com/docs/call-events.
+      properties:
+        call_id:
+          type: integer
+          format: int64
+        master_call_id:
+          type: integer
+          format: int64
+        operator_call_id:
+          type: integer
+          format: int64
+        entry_point_call_id:
+          type: integer
+          format: int64
+        state:
+          type: string
+          description: Current call state.
+          enum:
+            - calling
+            - ringing
+            - preanswer
+            - connected
+            - merged
+            - hold
+            - parked
+            - voicemail
+            - voicemail_uploaded
+            - transcription
+            - hangup
+            - missed
+            - recording
+            - call_transcription
+            - dispositions
+            - recap_summary
+            - recap_outcome
+            - recap_purposes
+            - recap_action_items
+            - ai_playbook
+        direction:
+          type: string
+          enum:
+            - inbound
+            - outbound
+        target:
+          $ref: '#/components/schemas/Target'
+        contact:
+          $ref: '#/components/schemas/Contact'
+        date_started:
+          type: integer
+          format: int64
+          description: Unix timestamp (ms).
+        date_connected:
+          type: integer
+          format: int64
+        date_ended:
+          type: integer
+          format: int64
+        duration:
+          type: integer
+          description: Call duration.
+        event_timestamp:
+          type: integer
+          format: int64
+
+    SmsEventPayload:
+      type: object
+      description: |
+        Payload delivered for SMS / MMS message events.
+        Fields documented at https://developers.dialpad.com/docs/sms-events.
+      properties:
+        id:
+          type: integer
+          format: int64
+          description: Unique numeric identifier for the message.
+        created_date:
+          type: integer
+          format: int64
+          description: Unix timestamp of message creation.
+        direction:
+          type: string
+          enum:
+            - inbound
+            - outbound
+        target:
+          $ref: '#/components/schemas/Target'
+        contact:
+          $ref: '#/components/schemas/Contact'
+        sender_id:
+          type: integer
+          format: int64
+          description: User ID who sent the message in group scenarios.
+        from_number:
+          type: string
+          description: E.164 phone number of sender.
+        to_number:
+          type: array
+          items:
+            type: string
+          description: E.164 phone numbers of receivers.
+        mms:
+          type: boolean
+        text:
+          type: string
+          description: |
+            SMS content or, for MMS, the URL of the media. Requires
+            appropriate OAuth scope to be included.
+        message_status:
+          type: string
+          enum:
+            - sent
+            - failed
+            - pending
+            - delivered
+            - undelivered
+        message_delivery_result:
+          type: string
+          description: Fine-grained delivery outcome.
+
+    AgentStatusEventPayload:
+      type: object
+      description: |
+        Payload delivered for call-center agent status changes.
+        Fields documented at https://developers.dialpad.com/docs/agent-status-events.
+      properties:
+        availability_status:
+          type: boolean
+          description: True when agent is available (not DND, not on a call).
+        on_duty_status:
+          type: string
+          enum:
+            - Available
+            - Unavailable
+            - Occupied
+            - Wrapup
+            - Busy
+        on_duty_status_reason:
+          type: string
+          description: Custom reason text supplied by the agent.
+        call_center_ids:
+          type: array
+          items:
+            type: integer
+            format: int64
+        powerdialer_mode:
+          type: boolean
+        powerdialer_session:
+          type: string
+        target:
+          $ref: '#/components/schemas/Target'
+        date:
+          type: integer
+          format: int64
+          description: Unix timestamp (ms) when status changed.
+        event_timestamp:
+          type: integer
+          format: int64
+          description: Unix timestamp (ms) when webhook was generated.
+
+    ContactEventPayload:
+      type: object
+      description: |
+        Payload delivered for contact created / updated / deleted events.
+        Fields documented at https://developers.dialpad.com/docs/contact-events.
+      properties:
+        event:
+          type: string
+          enum:
+            - Created
+            - Updated
+            - Deleted
+        contact:
+          $ref: '#/components/schemas/Contact'
+
+    ChangeLogEventPayload:
+      type: object
+      description: |
+        Payload delivered for change log events.
+        Fields documented at https://developers.dialpad.com/docs/change-log-events.
+      properties:
+        date:
+          type: integer
+          format: int64
+          description: Unix timestamp (ms UTC) of the change.
+        action:
+          type: string
+          description: Human-readable code (e.g. `updated_ivr`, `operator_removed`).
+        note:
+          type: string
+          description: Contextual text explanation. Formatting not standardized.
+        additional_data:
+          type: object
+          description: Optional details about what changed. Formatting not standardized.
+          additionalProperties: true
+        target:
+          $ref: '#/components/schemas/Target'
+        changed_by:
+          type: object
+          description: |
+            Source of the change. Contains name, id, and type for company
+            employees; redacted for Dialpad-initiated changes.
+          properties:
+            id:
+              type: integer
+              format: int64
+            name:
+              type: string
+            type:
+              type: string
