@@ -1,0 +1,1114 @@
+"""
+Dialpad GraphQL Schema
+Conceptual schema derived from the Dialpad REST API (https://developers.dialpad.com/reference).
+Covers calls, AI analysis, contacts, voicemail, SMS, users, numbers, contact centers,
+IVR, conferencing, analytics, and platform configuration.
+"""
+
+# ---------------------------------------------------------------------------
+# Scalars
+# ---------------------------------------------------------------------------
+
+scalar DateTime
+scalar JSON
+scalar URL
+
+# ---------------------------------------------------------------------------
+# Enums
+# ---------------------------------------------------------------------------
+
+enum CallDirection {
+  INBOUND
+  OUTBOUND
+  INTERNAL
+}
+
+enum CallStatus {
+  RINGING
+  CONNECTED
+  HOLD
+  VOICEMAIL
+  MISSED
+  COMPLETED
+  CANCELLED
+  FAILED
+}
+
+enum MomentType {
+  COMPETITOR
+  OBJECTION
+  PRICING
+  CUSTOM
+  SENTIMENT
+  QUESTION
+  ESCALATION
+}
+
+enum ContactType {
+  PERSONAL
+  SHARED
+  EXTERNAL
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  SUSPENDED
+  INVITED
+}
+
+enum LineType {
+  PERSONAL
+  SHARED
+  MAIN
+  DEPARTMENT
+}
+
+enum NumberType {
+  LOCAL
+  TOLL_FREE
+  INTERNATIONAL
+}
+
+enum QueueStatus {
+  OPEN
+  CLOSED
+  PAUSED
+  OVERFLOW
+}
+
+enum SMSStatus {
+  QUEUED
+  SENT
+  DELIVERED
+  FAILED
+  RECEIVED
+}
+
+enum WebhookEvent {
+  call.created
+  call.connected
+  call.completed
+  call.missed
+  voicemail.created
+  sms.created
+  contact.created
+  contact.updated
+  queue.changed
+  recording.completed
+  transcript.completed
+}
+
+enum SentimentScore {
+  POSITIVE
+  NEUTRAL
+  NEGATIVE
+}
+
+enum DispositionCategory {
+  RESOLVED
+  ESCALATED
+  FOLLOW_UP
+  NO_ANSWER
+  WRONG_NUMBER
+  OTHER
+}
+
+enum IVRActionType {
+  ROUTE_TO_USER
+  ROUTE_TO_GROUP
+  ROUTE_TO_QUEUE
+  ROUTE_TO_VOICEMAIL
+  ROUTE_TO_MENU
+  PLAY_MESSAGE
+  HANG_UP
+}
+
+# ---------------------------------------------------------------------------
+# Pagination
+# ---------------------------------------------------------------------------
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+  totalCount: Int!
+}
+
+# ---------------------------------------------------------------------------
+# Call Types
+# ---------------------------------------------------------------------------
+
+"""Top-level call record."""
+type Call {
+  id: ID!
+  direction: CallDirection!
+  status: CallStatus!
+  startedAt: DateTime
+  endedAt: DateTime
+  duration: CallDuration
+  details: CallDetails
+  participants: CallParticipants!
+  recording: CallRecording
+  transcript: CallTranscript
+  ai: CallAI
+  voicemail: VoicemailMessage
+  disposition: Disposition
+  labels: [String!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Extended metadata for a call."""
+type CallDetails {
+  callId: ID!
+  externalNumber: String
+  internalTarget: String
+  departmentId: ID
+  lineId: ID
+  callCenterId: ID
+  queueId: ID
+  transferredFrom: ID
+  transferredTo: ID
+  recordingConsent: Boolean
+  isMonitored: Boolean
+  channel: String
+}
+
+"""Duration breakdown for a call, all values in seconds."""
+type CallDuration {
+  total: Int!
+  talkTime: Int!
+  holdTime: Int!
+  ringTime: Int!
+}
+
+"""Caller and callee identity within a call."""
+type CallParticipants {
+  caller: CallParty!
+  callee: CallParty!
+  additionalParticipants: [CallParty!]
+}
+
+"""A single participant in a call."""
+type CallParty {
+  userId: ID
+  name: String
+  phoneNumber: String
+  isInternal: Boolean!
+  device: UserDevice
+}
+
+"""Recording artifact attached to a completed call."""
+type CallRecording {
+  id: ID!
+  url: URL!
+  duration: Int!
+  format: String
+  consentGiven: Boolean!
+  createdAt: DateTime!
+}
+
+"""Full call transcript."""
+type CallTranscript {
+  id: ID!
+  callId: ID!
+  language: String
+  segments: [TranscriptSegment!]!
+  createdAt: DateTime!
+}
+
+"""Individual speaker turn within a transcript."""
+type TranscriptSegment {
+  id: ID!
+  speakerId: String!
+  speakerName: String
+  text: String!
+  startTime: Float!
+  endTime: Float!
+  confidence: Float
+  sentiment: SentimentScore
+}
+
+type CallEdge {
+  node: Call!
+  cursor: String!
+}
+
+type CallConnection {
+  edges: [CallEdge!]!
+  pageInfo: PageInfo!
+}
+
+input CallFilter {
+  direction: CallDirection
+  status: CallStatus
+  startAfter: DateTime
+  startBefore: DateTime
+  userId: ID
+  departmentId: ID
+  callCenterId: ID
+  hasRecording: Boolean
+  hasTranscript: Boolean
+}
+
+# ---------------------------------------------------------------------------
+# AI / Conversation Intelligence Types
+# ---------------------------------------------------------------------------
+
+"""Container for all Dialpad Ai output on a call."""
+type CallAI {
+  callId: ID!
+  summary: AISummary
+  actionItems: [ActionItem!]
+  moments: [CallMoment!]
+  sentiment: SentimentScore
+  coachingNotes: String
+  keywords: [String!]
+}
+
+"""AI-generated summary of a completed call."""
+type AISummary {
+  id: ID!
+  text: String!
+  topics: [String!]
+  confidence: Float
+  generatedAt: DateTime!
+}
+
+"""Extracted follow-up action item from a call."""
+type ActionItem {
+  id: ID!
+  text: String!
+  assigneeId: ID
+  assigneeName: String
+  dueDate: DateTime
+  completed: Boolean!
+  detectedAt: Float
+}
+
+"""A detected moment event during a call (e.g., competitor mention)."""
+type CallMoment {
+  id: ID!
+  type: MomentType!
+  label: String!
+  detectedAt: Float!
+  transcriptSegmentId: ID
+  confidence: Float
+  metadata: JSON
+}
+
+# ---------------------------------------------------------------------------
+# Contact Types
+# ---------------------------------------------------------------------------
+
+"""Contact record in Dialpad."""
+type Contact {
+  id: ID!
+  firstName: String
+  lastName: String
+  displayName: String!
+  type: ContactType!
+  details: ContactDetails
+  phones: [ContactPhone!]!
+  emails: [ContactEmail!]!
+  owner: User
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Extended contact profile fields."""
+type ContactDetails {
+  company: String
+  jobTitle: String
+  notes: String
+  address: String
+  avatarUrl: URL
+  source: String
+  externalId: String
+}
+
+"""A phone number entry on a contact."""
+type ContactPhone {
+  id: ID!
+  label: String
+  number: String!
+  isPrimary: Boolean!
+  type: String
+}
+
+"""An email address entry on a contact."""
+type ContactEmail {
+  id: ID!
+  label: String
+  address: String!
+  isPrimary: Boolean!
+}
+
+type ContactEdge {
+  node: Contact!
+  cursor: String!
+}
+
+type ContactConnection {
+  edges: [ContactEdge!]!
+  pageInfo: PageInfo!
+}
+
+# ---------------------------------------------------------------------------
+# Voicemail Types
+# ---------------------------------------------------------------------------
+
+"""Voicemail record."""
+type VoicemailMessage {
+  id: ID!
+  callId: ID
+  caller: CallParty!
+  duration: Int!
+  audioUrl: URL
+  isRead: Boolean!
+  details: VoicemailDetails
+  transcript: VoicemailTranscript
+  createdAt: DateTime!
+}
+
+"""Extended voicemail metadata."""
+type VoicemailDetails {
+  mailboxId: ID!
+  mailboxType: String
+  targetUserId: ID
+  targetDepartmentId: ID
+  expiresAt: DateTime
+}
+
+"""Text transcript of a voicemail."""
+type VoicemailTranscript {
+  id: ID!
+  voicemailId: ID!
+  text: String!
+  confidence: Float
+  language: String
+  createdAt: DateTime!
+}
+
+# ---------------------------------------------------------------------------
+# SMS / Messaging Types
+# ---------------------------------------------------------------------------
+
+"""Root SMS container associated with a conversation."""
+type SMS {
+  id: ID!
+  conversation: SMSConversation!
+  messages: [SMSMessage!]!
+  unreadCount: Int!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Individual SMS or MMS message."""
+type SMSMessage {
+  id: ID!
+  conversationId: ID!
+  from: String!
+  to: String!
+  body: String
+  mediaUrls: [URL!]
+  status: SMSStatus!
+  direction: CallDirection!
+  details: SMSDetails
+  createdAt: DateTime!
+}
+
+"""Message metadata."""
+type SMSDetails {
+  errorCode: String
+  errorMessage: String
+  segments: Int
+  channel: String
+  operatorId: ID
+}
+
+"""Thread of SMS messages between two parties."""
+type SMSConversation {
+  id: ID!
+  participants: [String!]!
+  messages: [SMSMessage!]!
+  lastMessage: SMSMessage
+  isArchived: Boolean!
+  userId: ID
+  departmentId: ID
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ---------------------------------------------------------------------------
+# Organization Types
+# ---------------------------------------------------------------------------
+
+"""Organizational department: Office, Group, or Call Center."""
+type Department {
+  id: ID!
+  name: String!
+  kind: String!
+  details: DepartmentDetails
+  operators: [Operator!]
+  mainNumber: Number
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Extended department configuration."""
+type DepartmentDetails {
+  timezone: String
+  country: String
+  businessHours: JSON
+  holdMusicId: ID
+  greetingMessage: String
+  maxWaitTime: Int
+  callRecordingEnabled: Boolean
+}
+
+"""An agent or attendant assigned to handle calls for a department."""
+type Operator {
+  id: ID!
+  userId: ID!
+  user: User
+  departmentId: ID!
+  isAvailable: Boolean!
+  priority: Int
+  skills: [String!]
+}
+
+# ---------------------------------------------------------------------------
+# User Types
+# ---------------------------------------------------------------------------
+
+"""Dialpad user account."""
+type User {
+  id: ID!
+  email: String!
+  firstName: String
+  lastName: String
+  displayName: String!
+  status: UserStatus!
+  details: UserDetails
+  devices: [UserDevice!]
+  line: Line
+  numbers: [Number!]
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Extended user profile."""
+type UserDetails {
+  role: String
+  officeId: ID
+  licenseType: String
+  extensionNumber: String
+  timezone: String
+  language: String
+  avatarUrl: URL
+  isAdmin: Boolean!
+  isSuperAdmin: Boolean!
+}
+
+"""Physical or software device registered to a user."""
+type UserDevice {
+  id: ID!
+  userId: ID!
+  name: String!
+  type: String!
+  platform: String
+  isRegistered: Boolean!
+  lastSeenAt: DateTime
+}
+
+type UserEdge {
+  node: User!
+  cursor: String!
+}
+
+type UserConnection {
+  edges: [UserEdge!]!
+  pageInfo: PageInfo!
+}
+
+# ---------------------------------------------------------------------------
+# Line Types
+# ---------------------------------------------------------------------------
+
+"""Logical phone line entity."""
+type Line {
+  id: ID!
+  type: LineType!
+  details: LineDetails
+  numbers: [Number!]!
+  ivr: IVR
+  holdMusic: HoldMusic
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Line configuration."""
+type LineDetails {
+  displayName: String
+  forwardingEnabled: Boolean
+  forwardingNumber: String
+  voicemailEnabled: Boolean
+  autoAnswerEnabled: Boolean
+  callRecordingEnabled: Boolean
+  greetingMessage: String
+  businessHours: JSON
+}
+
+# ---------------------------------------------------------------------------
+# Number Types
+# ---------------------------------------------------------------------------
+
+"""E.164 phone number record."""
+type Number {
+  id: ID!
+  number: String!
+  type: NumberType!
+  details: NumberDetails
+  assignedTo: User
+  assignedToDepartment: Department
+  createdAt: DateTime!
+}
+
+"""Phone number metadata."""
+type NumberDetails {
+  countryCode: String!
+  areaCode: String
+  city: String
+  state: String
+  country: String!
+  isPortedIn: Boolean
+  portedAt: DateTime
+  capabilities: [String!]
+}
+
+type NumberEdge {
+  node: Number!
+  cursor: String!
+}
+
+type NumberConnection {
+  edges: [NumberEdge!]!
+  pageInfo: PageInfo!
+}
+
+# ---------------------------------------------------------------------------
+# Contact Center Types
+# ---------------------------------------------------------------------------
+
+"""Contact center definition."""
+type CallCenter {
+  id: ID!
+  name: String!
+  queues: [Queue!]!
+  operators: [Operator!]!
+  numbers: [Number!]!
+  analytics: CallAnalytics
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""Inbound call queue."""
+type Queue {
+  id: ID!
+  callCenterId: ID!
+  name: String!
+  status: QueueStatus!
+  stats: QueueStats
+  holdMusic: HoldMusic
+  maxSize: Int
+  maxWaitSeconds: Int
+  overflowAction: String
+  createdAt: DateTime!
+}
+
+"""Real-time queue metrics."""
+type QueueStats {
+  queueId: ID!
+  callsWaiting: Int!
+  agentsAvailable: Int!
+  agentsOnCall: Int!
+  averageWaitSeconds: Float!
+  longestWaitSeconds: Float!
+  callsHandledToday: Int!
+  callsAbandonedToday: Int!
+  timestamp: DateTime!
+}
+
+"""Hold music configuration."""
+type HoldMusic {
+  id: ID!
+  name: String!
+  audioUrl: URL
+  isDefault: Boolean!
+}
+
+type CallCenterEdge {
+  node: CallCenter!
+  cursor: String!
+}
+
+type CallCenterConnection {
+  edges: [CallCenterEdge!]!
+  pageInfo: PageInfo!
+}
+
+# ---------------------------------------------------------------------------
+# IVR Types
+# ---------------------------------------------------------------------------
+
+"""Interactive Voice Response definition."""
+type IVR {
+  id: ID!
+  name: String!
+  lineId: ID
+  callCenterId: ID
+  rootMenu: IVRMenu!
+  greetingMessage: String
+  isActive: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+"""A menu node within an IVR tree."""
+type IVRMenu {
+  id: ID!
+  ivrId: ID!
+  name: String!
+  promptMessage: String
+  timeoutSeconds: Int
+  options: [IVROption!]!
+  defaultOption: IVROption
+}
+
+"""A key-press option within an IVR menu."""
+type IVROption {
+  id: ID!
+  menuId: ID!
+  digit: String!
+  label: String
+  action: IVRActionType!
+  targetId: ID
+  targetMenu: IVRMenu
+}
+
+# ---------------------------------------------------------------------------
+# Conference / Meeting Types
+# ---------------------------------------------------------------------------
+
+"""Audio conference bridge definition."""
+type Conference {
+  id: ID!
+  name: String!
+  bridge: ConferenceBridge!
+  activeSessions: [ConferenceCall!]
+  hostUserId: ID
+  createdAt: DateTime!
+}
+
+"""Active conference call session."""
+type ConferenceCall {
+  id: ID!
+  conferenceId: ID!
+  participants: [CallParty!]!
+  startedAt: DateTime!
+  duration: Int
+  isRecording: Boolean!
+  recording: CallRecording
+}
+
+"""Static conference bridge with dial-in credentials."""
+type ConferenceBridge {
+  id: ID!
+  dialInNumber: String!
+  pin: String!
+  hostPin: String
+  maxParticipants: Int
+  isActive: Boolean!
+}
+
+"""Dialpad Meetings (video) session record."""
+type Meeting {
+  id: ID!
+  title: String!
+  hostUserId: ID!
+  host: User
+  scheduledAt: DateTime
+  startedAt: DateTime
+  endedAt: DateTime
+  videoMeeting: VideoMeeting
+  joinUrl: URL!
+  createdAt: DateTime!
+}
+
+"""Video meeting session with participant list."""
+type VideoMeeting {
+  id: ID!
+  meetingId: ID!
+  participants: [CallParty!]!
+  recording: CallRecording
+  transcript: CallTranscript
+  ai: CallAI
+  isLive: Boolean!
+  maxParticipants: Int
+}
+
+# ---------------------------------------------------------------------------
+# Analytics Types
+# ---------------------------------------------------------------------------
+
+"""Root analytics query container."""
+type Analytics {
+  calls: CallAnalytics
+  queues: [QueueStats!]
+  users: [UserAnalytics!]
+}
+
+"""Call volume and outcome metrics over a date range."""
+type CallAnalytics {
+  targetId: ID
+  targetType: String
+  startDate: DateTime!
+  endDate: DateTime!
+  totalCalls: Int!
+  inboundCalls: Int!
+  outboundCalls: Int!
+  missedCalls: Int!
+  averageDurationSeconds: Float!
+  totalTalkTimeSeconds: Int!
+  volume: CallVolume!
+  resolution: CallResolution!
+}
+
+"""Volume breakdown by time bucket."""
+type CallVolume {
+  buckets: [VolumeBucket!]!
+  bucketSize: String!
+}
+
+"""A single time-bucketed volume entry."""
+type VolumeBucket {
+  timestamp: DateTime!
+  inbound: Int!
+  outbound: Int!
+  missed: Int!
+  total: Int!
+}
+
+"""Resolution metrics for a set of calls."""
+type CallResolution {
+  handled: Int!
+  abandoned: Int!
+  transferred: Int!
+  voicemail: Int!
+  averageHandleTimeSeconds: Float!
+  firstCallResolutionRate: Float
+}
+
+"""Post-call disposition code."""
+type Disposition {
+  id: ID!
+  callId: ID!
+  code: String!
+  label: String!
+  category: DispositionCategory!
+  notes: String
+  appliedBy: User
+  appliedAt: DateTime!
+}
+
+"""Per-user analytics summary."""
+type UserAnalytics {
+  userId: ID!
+  user: User
+  totalCalls: Int!
+  averageHandleTimeSeconds: Float!
+  missedCalls: Int!
+  satisfactionScore: Float
+}
+
+input AnalyticsFilter {
+  startDate: DateTime!
+  endDate: DateTime!
+  targetId: ID
+  targetType: String
+  groupBy: String
+}
+
+# ---------------------------------------------------------------------------
+# Platform / Auth Types
+# ---------------------------------------------------------------------------
+
+"""Dialpad Connect (embedded dialer) configuration."""
+type DialpadConnect {
+  id: ID!
+  name: String!
+  clientId: String!
+  allowedOrigins: [String!]!
+  features: JSON
+  isActive: Boolean!
+  createdAt: DateTime!
+}
+
+"""API key credential record."""
+type APIKey {
+  id: ID!
+  name: String!
+  prefix: String!
+  scopes: [String!]!
+  createdAt: DateTime!
+  expiresAt: DateTime
+  lastUsedAt: DateTime
+  createdBy: User
+}
+
+"""OAuth 2.0 token with scope and expiry information."""
+type OAuthToken {
+  accessToken: String!
+  tokenType: String!
+  expiresIn: Int!
+  refreshToken: String
+  scopes: [String!]!
+  issuedAt: DateTime!
+}
+
+"""Webhook subscription."""
+type Webhook {
+  id: ID!
+  url: URL!
+  events: [WebhookEvent!]!
+  secret: String
+  isActive: Boolean!
+  targetId: ID
+  targetType: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+}
+
+# ---------------------------------------------------------------------------
+# Input Types
+# ---------------------------------------------------------------------------
+
+input InitiateCallInput {
+  fromUserId: ID!
+  toNumber: String!
+  fromNumber: String
+  record: Boolean
+}
+
+input TransferCallInput {
+  callId: ID!
+  targetUserId: ID
+  targetNumber: String
+  warm: Boolean
+}
+
+input SendSMSInput {
+  fromUserId: ID!
+  fromNumber: String!
+  toNumber: String!
+  body: String
+  mediaUrls: [URL!]
+}
+
+input CreateContactInput {
+  firstName: String
+  lastName: String
+  type: ContactType!
+  phones: [ContactPhoneInput!]
+  emails: [ContactEmailInput!]
+  details: ContactDetailsInput
+}
+
+input UpdateContactInput {
+  firstName: String
+  lastName: String
+  phones: [ContactPhoneInput!]
+  emails: [ContactEmailInput!]
+  details: ContactDetailsInput
+}
+
+input ContactPhoneInput {
+  label: String
+  number: String!
+  isPrimary: Boolean
+}
+
+input ContactEmailInput {
+  label: String
+  address: String!
+  isPrimary: Boolean
+}
+
+input ContactDetailsInput {
+  company: String
+  jobTitle: String
+  notes: String
+  address: String
+}
+
+input AssignNumberInput {
+  numberId: ID!
+  userId: ID
+  departmentId: ID
+}
+
+input CreateWebhookInput {
+  url: URL!
+  events: [WebhookEvent!]!
+  secret: String
+  targetId: ID
+  targetType: String
+}
+
+# ---------------------------------------------------------------------------
+# Root Types
+# ---------------------------------------------------------------------------
+
+type Query {
+  """Fetch a single call by ID."""
+  call(id: ID!): Call
+
+  """List calls with optional filters and pagination."""
+  calls(filter: CallFilter, first: Int, after: String): CallConnection!
+
+  """Fetch a single contact by ID."""
+  contact(id: ID!): Contact
+
+  """Search or list contacts."""
+  contacts(search: String, type: ContactType, first: Int, after: String): ContactConnection!
+
+  """Fetch a voicemail by ID."""
+  voicemail(id: ID!): VoicemailMessage
+
+  """List voicemails for a user or department."""
+  voicemails(userId: ID, departmentId: ID, first: Int, after: String): [VoicemailMessage!]!
+
+  """Fetch an SMS conversation by ID."""
+  smsConversation(id: ID!): SMSConversation
+
+  """List SMS conversations."""
+  smsConversations(userId: ID, first: Int, after: String): [SMSConversation!]!
+
+  """Fetch a single user by ID."""
+  user(id: ID!): User
+
+  """List users with optional filters."""
+  users(departmentId: ID, status: UserStatus, first: Int, after: String): UserConnection!
+
+  """Fetch a department by ID."""
+  department(id: ID!): Department
+
+  """List all departments."""
+  departments(first: Int, after: String): [Department!]!
+
+  """Fetch a phone number by ID."""
+  number(id: ID!): Number
+
+  """List phone numbers."""
+  numbers(assigned: Boolean, type: NumberType, first: Int, after: String): NumberConnection!
+
+  """Fetch a call center by ID."""
+  callCenter(id: ID!): CallCenter
+
+  """List call centers."""
+  callCenters(first: Int, after: String): CallCenterConnection!
+
+  """Fetch a queue by ID."""
+  queue(id: ID!): Queue
+
+  """Fetch real-time queue stats."""
+  queueStats(queueId: ID!): QueueStats
+
+  """Fetch an IVR by ID."""
+  ivr(id: ID!): IVR
+
+  """Fetch a meeting by ID."""
+  meeting(id: ID!): Meeting
+
+  """List meetings for a user."""
+  meetings(userId: ID, first: Int, after: String): [Meeting!]!
+
+  """Fetch analytics with filters."""
+  analytics(filter: AnalyticsFilter!): Analytics!
+
+  """List all webhooks."""
+  webhooks: [Webhook!]!
+
+  """Fetch a webhook by ID."""
+  webhook(id: ID!): Webhook
+
+  """List API keys."""
+  apiKeys: [APIKey!]!
+}
+
+type Mutation {
+  """Initiate an outbound call."""
+  initiateCall(input: InitiateCallInput!): Call!
+
+  """Hang up an active call."""
+  hangupCall(id: ID!): Call!
+
+  """Toggle hold on a call."""
+  holdCall(id: ID!, hold: Boolean!): Call!
+
+  """Transfer a call to another user or number."""
+  transferCall(input: TransferCallInput!): Call!
+
+  """Send an SMS or MMS message."""
+  sendSMS(input: SendSMSInput!): SMSMessage!
+
+  """Create a new contact."""
+  createContact(input: CreateContactInput!): Contact!
+
+  """Update an existing contact."""
+  updateContact(id: ID!, input: UpdateContactInput!): Contact!
+
+  """Delete a contact."""
+  deleteContact(id: ID!): Boolean!
+
+  """Assign a phone number to a user or department."""
+  assignNumber(input: AssignNumberInput!): Number!
+
+  """Unassign a phone number."""
+  unassignNumber(id: ID!): Number!
+
+  """Create a webhook subscription."""
+  createWebhook(input: CreateWebhookInput!): Webhook!
+
+  """Update a webhook subscription."""
+  updateWebhook(id: ID!, input: CreateWebhookInput!): Webhook!
+
+  """Delete a webhook subscription."""
+  deleteWebhook(id: ID!): Boolean!
+
+  """Mark a voicemail as read."""
+  markVoicemailRead(id: ID!, read: Boolean!): VoicemailMessage!
+
+  """Apply a disposition code to a completed call."""
+  applyDisposition(callId: ID!, code: String!, notes: String): Disposition!
+}
+
+type Subscription {
+  """Real-time updates for a specific call."""
+  callStatusChanged(callId: ID!): Call!
+
+  """New call events for a user."""
+  newCall(userId: ID!): Call!
+
+  """Queue stats updates."""
+  queueStatsUpdated(queueId: ID!): QueueStats!
+
+  """New inbound SMS messages."""
+  newSMS(userId: ID!): SMSMessage!
+
+  """New voicemail alerts."""
+  newVoicemail(userId: ID!): VoicemailMessage!
+}

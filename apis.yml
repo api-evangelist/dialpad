@@ -2,112 +2,115 @@ aid: dialpad
 url: https://raw.githubusercontent.com/api-evangelist/dialpad/refs/heads/main/apis.yml
 name: Dialpad
 kind: company
-description: Dialpad is an AI-powered cloud communications platform offering business phone, contact center, video, and messaging.
-  Notable for Dialpad Ai (real-time transcription, sentiment, coaching).
+description: Dialpad is an AI-powered cloud communications platform offering business
+  phone, contact center, video, and messaging. Notable for Dialpad Ai (real-time transcription,
+  sentiment, coaching).
 image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
 tags:
-  - Communications
-  - Voice
-  - AI
-  - Contact Center
-  - UCaaS
+- Communications
+- Voice
+- AI
+- Contact Center
+- UCaaS
 created: '2026-05-08'
 modified: '2026-05-30'
 specificationVersion: '0.19'
 apis:
-  - name: Dialpad Calls API
-    description: Originate, control and read call records and recordings.
-    humanURL: https://developers.dialpad.com/reference
-    baseURL: https://dialpad.com/api/v2
-    tags:
-    - Calls
-    - Voice
-    properties:
-    - type: Documentation
-      url: https://developers.dialpad.com/reference
-  - name: Dialpad Users API
-    description: Provision and manage users, offices and groups.
-    humanURL: https://developers.dialpad.com/reference
-    baseURL: https://dialpad.com/api/v2
-    tags:
-    - Users
-    properties:
-    - type: Documentation
-      url: https://developers.dialpad.com/reference
-  - name: Dialpad Numbers API
-    description: Manage phone numbers including main lines and assignment.
-    humanURL: https://developers.dialpad.com/reference
-    baseURL: https://dialpad.com/api/v2
-    tags:
-    - Numbers
-    properties:
-    - type: Documentation
-      url: https://developers.dialpad.com/reference
-  - name: Dialpad SMS API
-    description: Send and receive SMS and MMS.
-    humanURL: https://developers.dialpad.com/reference
-    baseURL: https://dialpad.com/api/v2
-    tags:
-    - SMS
-    properties:
-    - type: Documentation
-      url: https://developers.dialpad.com/reference
-  - name: Dialpad Contact Center API
-    description: Contact center call routing, queues, agents and stats.
-    humanURL: https://developers.dialpad.com/reference
-    baseURL: https://dialpad.com/api/v2
-    tags:
-    - Contact Center
-    - CCaaS
-    properties:
-    - type: Documentation
-      url: https://developers.dialpad.com/reference
-  - name: Dialpad Conversation AI API
-    description: Transcripts, summaries, sentiment, and Ai-powered moments.
-    humanURL: https://developers.dialpad.com/reference
-    baseURL: https://dialpad.com/api/v2
-    tags:
-    - AI
-    - Transcription
-    properties:
-    - type: Documentation
-      url: https://developers.dialpad.com/reference
-  - name: Dialpad Webhooks API
-    description: Register and manage webhook subscriptions.
-    humanURL: https://developers.dialpad.com/reference
-    baseURL: https://dialpad.com/api/v2
-    tags:
-    - Webhooks
-    properties:
-    - type: Documentation
-      url: https://developers.dialpad.com/reference
-    - type: AsyncAPI
-      url: openapi/dialpad-asyncapi.yml
+- name: Dialpad Calls API
+  description: Originate, control and read call records and recordings.
+  humanURL: https://developers.dialpad.com/reference
+  baseURL: https://dialpad.com/api/v2
+  tags:
+  - Calls
+  - Voice
+  properties:
+  - type: Documentation
+    url: https://developers.dialpad.com/reference
+  - url: graphql/dialpad-graphql.md
+    type: GraphQL
+- name: Dialpad Users API
+  description: Provision and manage users, offices and groups.
+  humanURL: https://developers.dialpad.com/reference
+  baseURL: https://dialpad.com/api/v2
+  tags:
+  - Users
+  properties:
+  - type: Documentation
+    url: https://developers.dialpad.com/reference
+- name: Dialpad Numbers API
+  description: Manage phone numbers including main lines and assignment.
+  humanURL: https://developers.dialpad.com/reference
+  baseURL: https://dialpad.com/api/v2
+  tags:
+  - Numbers
+  properties:
+  - type: Documentation
+    url: https://developers.dialpad.com/reference
+- name: Dialpad SMS API
+  description: Send and receive SMS and MMS.
+  humanURL: https://developers.dialpad.com/reference
+  baseURL: https://dialpad.com/api/v2
+  tags:
+  - SMS
+  properties:
+  - type: Documentation
+    url: https://developers.dialpad.com/reference
+- name: Dialpad Contact Center API
+  description: Contact center call routing, queues, agents and stats.
+  humanURL: https://developers.dialpad.com/reference
+  baseURL: https://dialpad.com/api/v2
+  tags:
+  - Contact Center
+  - CCaaS
+  properties:
+  - type: Documentation
+    url: https://developers.dialpad.com/reference
+- name: Dialpad Conversation AI API
+  description: Transcripts, summaries, sentiment, and Ai-powered moments.
+  humanURL: https://developers.dialpad.com/reference
+  baseURL: https://dialpad.com/api/v2
+  tags:
+  - AI
+  - Transcription
+  properties:
+  - type: Documentation
+    url: https://developers.dialpad.com/reference
+- name: Dialpad Webhooks API
+  description: Register and manage webhook subscriptions.
+  humanURL: https://developers.dialpad.com/reference
+  baseURL: https://dialpad.com/api/v2
+  tags:
+  - Webhooks
+  properties:
+  - type: Documentation
+    url: https://developers.dialpad.com/reference
+  - type: AsyncAPI
+    url: openapi/dialpad-asyncapi.yml
 common:
-  - type: GitHubOrganization
-    url: https://github.com/dialpad
-  - type: LinkedIn
-    url: https://www.linkedin.com/company/dialpad
-  - type: Website
-    url: https://www.dialpad.com/
-  - type: Plans
-    url: plans/dialpad-plans-pricing.yml
-  - type: RateLimits
-    url: rate-limits/dialpad-rate-limits.yml
-  - type: FinOps
-    url: finops/dialpad-finops.yml
-  - type: Integrations
-    url: https://www.dialpad.com/integrations/
-  - type: LLMsTxt
-    url: https://developers.dialpad.com/llms.txt
+- type: GitHubOrganization
+  url: https://github.com/dialpad
+- type: LinkedIn
+  url: https://www.linkedin.com/company/dialpad
+- type: Website
+  url: https://www.dialpad.com/
+- type: Plans
+  url: plans/dialpad-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/dialpad-rate-limits.yml
+- type: FinOps
+  url: finops/dialpad-finops.yml
+- type: Integrations
+  url: https://www.dialpad.com/integrations/
+- type: LLMsTxt
+  url: https://developers.dialpad.com/llms.txt
 integrations:
-  - name: United States flag
-  - name: Dialpad
-  - name: A smiling woman
-  - name: A man using his mobile device
-  - name: Eight people on a meeting
-  - name: A hand holding a mobile device
-  - name: A woman talking on the phone
+- name: United States flag
+- name: Dialpad
+- name: A smiling woman
+- name: A man using his mobile device
+- name: Eight people on a meeting
+- name: A hand holding a mobile device
+- name: A woman talking on the phone
 maintainers:
-  - FN: Kin Lane
-    email: kin@apievangelist.com
+- FN: Kin Lane
+  email: kin@apievangelist.com
