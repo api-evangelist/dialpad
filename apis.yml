@@ -101,7 +101,7 @@ common:
   url: finops/dialpad-finops.yml
 - type: Integrations
   url: https://www.dialpad.com/integrations/
-- type: LLMsTxt
+- type: LlmsText
   url: https://developers.dialpad.com/llms.txt
 integrations:
 - name: United States flag
