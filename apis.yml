@@ -87,6 +87,14 @@ apis:
   - type: AsyncAPI
     url: openapi/dialpad-asyncapi.yml
 common:
+- type: TrustCenter
+  url: security/dialpad-trust-center.yml
+- type: VulnerabilityDisclosure
+  url: security/dialpad-vulnerability-disclosure.yml
+- type: DomainSecurity
+  url: security/dialpad-domain-security.yml
+- type: Authentication
+  url: authentication/dialpad-authentication.yml
 - type: GitHubOrganization
   url: https://github.com/dialpad
 - type: LinkedIn
