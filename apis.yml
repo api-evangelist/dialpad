@@ -87,6 +87,8 @@ apis:
   - type: AsyncAPI
     url: openapi/dialpad-asyncapi.yml
 common:
+- type: AgenticAccess
+  url: agentic-access/dialpad-agentic-access.yml
 - type: TrustCenter
   url: security/dialpad-trust-center.yml
 - type: VulnerabilityDisclosure
