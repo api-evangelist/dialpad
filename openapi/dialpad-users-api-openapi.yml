@@ -1,0 +1,89 @@
+openapi: 3.1.0
+info:
+  title: Dialpad Calls Users API
+  description: REST API for Dialpad's AI-powered cloud communications platform. Manage calls, users, offices, contacts, rooms, recordings, transcripts, webhooks and event subscriptions.
+  version: '2.0'
+servers:
+- url: https://dialpad.com/api/v2
+  description: Dialpad API v2
+security:
+- bearerAuth: []
+- apiKeyAuth: []
+tags:
+- name: Users
+paths:
+  /users:
+    get:
+      tags:
+      - Users
+      summary: List company users
+      operationId: listUsers
+      responses:
+        '200':
+          description: Users
+    post:
+      tags:
+      - Users
+      summary: Create user
+      operationId: createUser
+      responses:
+        '200':
+          description: User created
+  /users/{id}:
+    get:
+      tags:
+      - Users
+      summary: Get user
+      operationId: getUser
+      parameters:
+      - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: User
+    patch:
+      tags:
+      - Users
+      summary: Update user
+      operationId: updateUser
+      parameters:
+      - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: User updated
+    delete:
+      tags:
+      - Users
+      summary: Delete user
+      operationId: deleteUser
+      parameters:
+      - $ref: '#/components/parameters/Id'
+      responses:
+        '204':
+          description: Deleted
+  /users/{id}/call:
+    post:
+      tags:
+      - Users
+      summary: Initiate call on behalf of user
+      operationId: initiateUserCall
+      parameters:
+      - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: Call initiated
+components:
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

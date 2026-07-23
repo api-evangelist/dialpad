@@ -1,0 +1,50 @@
+openapi: 3.1.0
+info:
+  title: Dialpad Calls Subscriptions API
+  description: REST API for Dialpad's AI-powered cloud communications platform. Manage calls, users, offices, contacts, rooms, recordings, transcripts, webhooks and event subscriptions.
+  version: '2.0'
+servers:
+- url: https://dialpad.com/api/v2
+  description: Dialpad API v2
+security:
+- bearerAuth: []
+- apiKeyAuth: []
+tags:
+- name: Subscriptions
+paths:
+  /webhook_call_event_subscription:
+    post:
+      tags:
+      - Subscriptions
+      summary: Subscribe to call events
+      operationId: subscribeCallEvents
+      responses:
+        '200':
+          description: Subscription created
+  /webhook_sms_event_subscription:
+    post:
+      tags:
+      - Subscriptions
+      summary: Subscribe to SMS events
+      operationId: subscribeSmsEvents
+      responses:
+        '200':
+          description: Subscription created
+  /webhook_contact_event_subscription:
+    post:
+      tags:
+      - Subscriptions
+      summary: Subscribe to contact events
+      operationId: subscribeContactEvents
+      responses:
+        '200':
+          description: Subscription created
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

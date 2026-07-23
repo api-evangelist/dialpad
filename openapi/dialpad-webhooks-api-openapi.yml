@@ -1,0 +1,78 @@
+openapi: 3.1.0
+info:
+  title: Dialpad Calls Webhooks API
+  description: REST API for Dialpad's AI-powered cloud communications platform. Manage calls, users, offices, contacts, rooms, recordings, transcripts, webhooks and event subscriptions.
+  version: '2.0'
+servers:
+- url: https://dialpad.com/api/v2
+  description: Dialpad API v2
+security:
+- bearerAuth: []
+- apiKeyAuth: []
+tags:
+- name: Webhooks
+paths:
+  /webhooks:
+    get:
+      tags:
+      - Webhooks
+      summary: List webhooks
+      operationId: listWebhooks
+      responses:
+        '200':
+          description: Webhooks
+    post:
+      tags:
+      - Webhooks
+      summary: Create webhook
+      operationId: createWebhook
+      responses:
+        '200':
+          description: Webhook created
+  /webhooks/{id}:
+    get:
+      tags:
+      - Webhooks
+      summary: Get webhook
+      operationId: getWebhook
+      parameters:
+      - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: Webhook
+    patch:
+      tags:
+      - Webhooks
+      summary: Update webhook
+      operationId: updateWebhook
+      parameters:
+      - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags:
+      - Webhooks
+      summary: Delete webhook
+      operationId: deleteWebhook
+      parameters:
+      - $ref: '#/components/parameters/Id'
+      responses:
+        '204':
+          description: Deleted
+components:
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

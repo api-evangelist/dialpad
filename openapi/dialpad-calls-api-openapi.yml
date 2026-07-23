@@ -1,0 +1,103 @@
+openapi: 3.1.0
+info:
+  title: Dialpad Calls API
+  description: REST API for Dialpad's AI-powered cloud communications platform. Manage calls, users, offices, contacts, rooms, recordings, transcripts, webhooks and event subscriptions.
+  version: '2.0'
+servers:
+- url: https://dialpad.com/api/v2
+  description: Dialpad API v2
+security:
+- bearerAuth: []
+- apiKeyAuth: []
+tags:
+- name: Calls
+paths:
+  /call:
+    post:
+      tags:
+      - Calls
+      summary: Initiate outbound call
+      operationId: initiateCall
+      responses:
+        '200':
+          description: Call initiated
+  /call/{id}:
+    get:
+      tags:
+      - Calls
+      summary: Get call status / info
+      operationId: getCall
+      parameters:
+      - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: Call details
+  /calls:
+    get:
+      tags:
+      - Calls
+      summary: List concluded calls
+      operationId: listCalls
+      responses:
+        '200':
+          description: List of calls
+  /call/{id}/transfer:
+    post:
+      tags:
+      - Calls
+      summary: Transfer active call
+      operationId: transferCall
+      parameters:
+      - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: Call transferred
+  /call/{id}/hangup:
+    post:
+      tags:
+      - Calls
+      summary: Terminate call
+      operationId: hangupCall
+      parameters:
+      - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: Call ended
+  /call/{id}/participants:
+    post:
+      tags:
+      - Calls
+      summary: Add participants to call
+      operationId: addCallParticipants
+      parameters:
+      - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: Participants added
+  /call/{id}/labels:
+    post:
+      tags:
+      - Calls
+      summary: Set call labels
+      operationId: setCallLabels
+      parameters:
+      - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: Labels updated
+components:
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

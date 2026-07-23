@@ -1,0 +1,78 @@
+openapi: 3.1.0
+info:
+  title: Dialpad Calls Contacts API
+  description: REST API for Dialpad's AI-powered cloud communications platform. Manage calls, users, offices, contacts, rooms, recordings, transcripts, webhooks and event subscriptions.
+  version: '2.0'
+servers:
+- url: https://dialpad.com/api/v2
+  description: Dialpad API v2
+security:
+- bearerAuth: []
+- apiKeyAuth: []
+tags:
+- name: Contacts
+paths:
+  /contacts:
+    get:
+      tags:
+      - Contacts
+      summary: List contacts
+      operationId: listContacts
+      responses:
+        '200':
+          description: Contacts
+    post:
+      tags:
+      - Contacts
+      summary: Create contact
+      operationId: createContact
+      responses:
+        '200':
+          description: Contact created
+  /contacts/{id}:
+    get:
+      tags:
+      - Contacts
+      summary: Get contact
+      operationId: getContact
+      parameters:
+      - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: Contact
+    patch:
+      tags:
+      - Contacts
+      summary: Update contact
+      operationId: updateContact
+      parameters:
+      - $ref: '#/components/parameters/Id'
+      responses:
+        '200':
+          description: Updated
+    delete:
+      tags:
+      - Contacts
+      summary: Delete contact
+      operationId: deleteContact
+      parameters:
+      - $ref: '#/components/parameters/Id'
+      responses:
+        '204':
+          description: Deleted
+components:
+  parameters:
+    Id:
+      name: id
+      in: path
+      required: true
+      schema:
+        type: string
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization

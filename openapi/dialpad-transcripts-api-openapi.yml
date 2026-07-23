@@ -1,0 +1,53 @@
+openapi: 3.1.0
+info:
+  title: Dialpad Calls Transcripts API
+  description: REST API for Dialpad's AI-powered cloud communications platform. Manage calls, users, offices, contacts, rooms, recordings, transcripts, webhooks and event subscriptions.
+  version: '2.0'
+servers:
+- url: https://dialpad.com/api/v2
+  description: Dialpad API v2
+security:
+- bearerAuth: []
+- apiKeyAuth: []
+tags:
+- name: Transcripts
+paths:
+  /transcripts/{call_id}:
+    get:
+      tags:
+      - Transcripts
+      summary: Get call transcript
+      operationId: getTranscript
+      parameters:
+      - name: call_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Transcript
+  /transcripts/{call_id}/url:
+    get:
+      tags:
+      - Transcripts
+      summary: Get transcript URL
+      operationId: getTranscriptUrl
+      parameters:
+      - name: call_id
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: URL
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
