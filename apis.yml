@@ -5,7 +5,20 @@ kind: company
 description: Dialpad is an AI-powered cloud communications platform offering business
   phone, contact center, video, and messaging. Notable for Dialpad Ai (real-time transcription,
   sentiment, coaching).
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/dialpad.png
 tags:
 - Communications
 - Voice
@@ -86,6 +99,96 @@ apis:
     url: https://developers.dialpad.com/reference
   - type: AsyncAPI
     url: openapi/dialpad-asyncapi.yml
+- aid: dialpad:dialpad-calls-api
+  name: Dialpad Calls API
+  description: The Calls API from Dialpad — 7 operation(s) for calls.
+  humanURL: https://developers.dialpad.com/reference
+  baseURL: https://dialpad.com/api/v2
+  tags:
+  - Calls
+  properties:
+  - type: OpenAPI
+    url: openapi/dialpad-calls-api-openapi.yml
+- aid: dialpad:dialpad-contacts-api
+  name: Dialpad Contacts API
+  description: The Contacts API from Dialpad — 2 operation(s) for contacts.
+  humanURL: https://developers.dialpad.com/reference
+  baseURL: https://dialpad.com/api/v2
+  tags:
+  - Contacts
+  properties:
+  - type: OpenAPI
+    url: openapi/dialpad-contacts-api-openapi.yml
+- aid: dialpad:dialpad-offices-api
+  name: Dialpad Offices API
+  description: The Offices API from Dialpad — 2 operation(s) for offices.
+  humanURL: https://developers.dialpad.com/reference
+  baseURL: https://dialpad.com/api/v2
+  tags:
+  - Offices
+  properties:
+  - type: OpenAPI
+    url: openapi/dialpad-offices-api-openapi.yml
+- aid: dialpad:dialpad-recordings-api
+  name: Dialpad Recordings API
+  description: The Recordings API from Dialpad — 2 operation(s) for recordings.
+  humanURL: https://developers.dialpad.com/reference
+  baseURL: https://dialpad.com/api/v2
+  tags:
+  - Recordings
+  properties:
+  - type: OpenAPI
+    url: openapi/dialpad-recordings-api-openapi.yml
+- aid: dialpad:dialpad-rooms-api
+  name: Dialpad Rooms API
+  description: The Rooms API from Dialpad — 2 operation(s) for rooms.
+  humanURL: https://developers.dialpad.com/reference
+  baseURL: https://dialpad.com/api/v2
+  tags:
+  - Rooms
+  properties:
+  - type: OpenAPI
+    url: openapi/dialpad-rooms-api-openapi.yml
+- aid: dialpad:dialpad-subscriptions-api
+  name: Dialpad Subscriptions API
+  description: The Subscriptions API from Dialpad — 3 operation(s) for subscriptions.
+  humanURL: https://developers.dialpad.com/reference
+  baseURL: https://dialpad.com/api/v2
+  tags:
+  - Subscriptions
+  properties:
+  - type: OpenAPI
+    url: openapi/dialpad-subscriptions-api-openapi.yml
+- aid: dialpad:dialpad-transcripts-api
+  name: Dialpad Transcripts API
+  description: The Transcripts API from Dialpad — 2 operation(s) for transcripts.
+  humanURL: https://developers.dialpad.com/reference
+  baseURL: https://dialpad.com/api/v2
+  tags:
+  - Transcripts
+  properties:
+  - type: OpenAPI
+    url: openapi/dialpad-transcripts-api-openapi.yml
+- aid: dialpad:dialpad-users-api
+  name: Dialpad Users API
+  description: The Users API from Dialpad — 3 operation(s) for users.
+  humanURL: https://developers.dialpad.com/reference
+  baseURL: https://dialpad.com/api/v2
+  tags:
+  - Users
+  properties:
+  - type: OpenAPI
+    url: openapi/dialpad-users-api-openapi.yml
+- aid: dialpad:dialpad-webhooks-api
+  name: Dialpad Webhooks API
+  description: The Webhooks API from Dialpad — 2 operation(s) for webhooks.
+  humanURL: https://developers.dialpad.com/reference
+  baseURL: https://dialpad.com/api/v2
+  tags:
+  - Webhooks
+  properties:
+  - type: OpenAPI
+    url: openapi/dialpad-webhooks-api-openapi.yml
 common:
 - type: AgenticAccess
   url: agentic-access/dialpad-agentic-access.yml
