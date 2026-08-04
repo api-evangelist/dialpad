@@ -1,0 +1,30 @@
+{
+  "provider": "dialpad",
+  "sources": [
+    "dialpad-calls-api-openapi.yml",
+    "dialpad-contacts-api-openapi.yml",
+    "dialpad-offices-api-openapi.yml",
+    "dialpad-recordings-api-openapi.yml",
+    "dialpad-rooms-api-openapi.yml",
+    "dialpad-subscriptions-api-openapi.yml",
+    "dialpad-transcripts-api-openapi.yml",
+    "dialpad-users-api-openapi.yml",
+    "dialpad-webhooks-api-openapi.yml"
+  ],
+  "outputs": [
+    "dialpad-calls-api-openapi.yml",
+    "dialpad-contacts-api-openapi.yml",
+    "dialpad-offices-api-openapi.yml",
+    "dialpad-recordings-api-openapi.yml",
+    "dialpad-rooms-api-openapi.yml",
+    "dialpad-subscriptions-api-openapi.yml",
+    "dialpad-transcripts-api-openapi.yml",
+    "dialpad-users-api-openapi.yml",
+    "dialpad-webhooks-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
