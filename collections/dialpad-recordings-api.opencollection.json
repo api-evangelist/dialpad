@@ -1,0 +1,53 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dialpad Calls Recordings API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Recordings",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Create recording share link",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dialpad.com/api/v2/recording_share_link"
+          },
+          "docs": "Create recording share link"
+        },
+        {
+          "info": {
+            "name": "Get recording share link",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dialpad.com/api/v2/recording_share_link/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get recording share link"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

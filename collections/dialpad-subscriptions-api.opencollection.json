@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dialpad Calls Subscriptions API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Subscriptions",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Subscribe to call events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dialpad.com/api/v2/webhook_call_event_subscription"
+          },
+          "docs": "Subscribe to call events"
+        },
+        {
+          "info": {
+            "name": "Subscribe to SMS events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dialpad.com/api/v2/webhook_sms_event_subscription"
+          },
+          "docs": "Subscribe to SMS events"
+        },
+        {
+          "info": {
+            "name": "Subscribe to contact events",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dialpad.com/api/v2/webhook_contact_event_subscription"
+          },
+          "docs": "Subscribe to contact events"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

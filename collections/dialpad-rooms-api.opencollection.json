@@ -1,0 +1,82 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dialpad Calls Rooms API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Rooms",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List rooms",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dialpad.com/api/v2/rooms"
+          },
+          "docs": "List rooms"
+        },
+        {
+          "info": {
+            "name": "Create room",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dialpad.com/api/v2/rooms"
+          },
+          "docs": "Create room"
+        },
+        {
+          "info": {
+            "name": "Get room",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dialpad.com/api/v2/rooms/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get room"
+        },
+        {
+          "info": {
+            "name": "Update room",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://dialpad.com/api/v2/rooms/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update room"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

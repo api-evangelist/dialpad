@@ -1,0 +1,82 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Dialpad Calls Offices API",
+    "version": "2.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Offices",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List offices",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dialpad.com/api/v2/offices"
+          },
+          "docs": "List offices"
+        },
+        {
+          "info": {
+            "name": "Create secondary office",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://dialpad.com/api/v2/offices"
+          },
+          "docs": "Create secondary office"
+        },
+        {
+          "info": {
+            "name": "Get office",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://dialpad.com/api/v2/offices/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get office"
+        },
+        {
+          "info": {
+            "name": "Update office",
+            "type": "http"
+          },
+          "http": {
+            "method": "PATCH",
+            "url": "https://dialpad.com/api/v2/offices/:id",
+            "params": [
+              {
+                "name": "id",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Update office"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
