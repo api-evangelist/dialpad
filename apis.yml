@@ -22,6 +22,12 @@ image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/dialpad.pn
 tags:
 - Communications
 - Voice
+- Artificial Intelligence
+- Contact Center
+- UCaaS
+tags_raw:
+- Communications
+- Voice
 - AI
 - Contact Center
 - UCaaS
@@ -46,6 +52,8 @@ apis:
   humanURL: https://developers.dialpad.com/reference
   baseURL: https://dialpad.com/api/v2
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: Documentation
@@ -83,6 +91,9 @@ apis:
   humanURL: https://developers.dialpad.com/reference
   baseURL: https://dialpad.com/api/v2
   tags:
+  - Artificial Intelligence
+  - Transcription
+  tags_raw:
   - AI
   - Transcription
   properties:
@@ -93,6 +104,8 @@ apis:
   humanURL: https://developers.dialpad.com/reference
   baseURL: https://dialpad.com/api/v2
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: Documentation
@@ -155,6 +168,8 @@ apis:
   humanURL: https://developers.dialpad.com/reference
   baseURL: https://dialpad.com/api/v2
   tags:
+  - Subscription
+  tags_raw:
   - Subscriptions
   properties:
   - type: OpenAPI
@@ -175,6 +190,8 @@ apis:
   humanURL: https://developers.dialpad.com/reference
   baseURL: https://dialpad.com/api/v2
   tags:
+  - User
+  tags_raw:
   - Users
   properties:
   - type: OpenAPI
@@ -185,6 +202,8 @@ apis:
   humanURL: https://developers.dialpad.com/reference
   baseURL: https://dialpad.com/api/v2
   tags:
+  - Webhook
+  tags_raw:
   - Webhooks
   properties:
   - type: OpenAPI
