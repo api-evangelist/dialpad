@@ -161,6 +161,8 @@ apis:
   humanURL: https://developers.dialpad.com/reference
   baseURL: https://dialpad.com/api/v2
   tags:
+  - Recording
+  tags_raw:
   - Recordings
   properties:
   - type: OpenAPI
