@@ -58,8 +58,6 @@ apis:
   properties:
   - type: Documentation
     url: https://developers.dialpad.com/reference
-  - url: graphql/dialpad-graphql.md
-    type: GraphQL
 - name: Dialpad Users API
   description: Provision and manage users, offices and groups.
   humanURL: https://developers.dialpad.com/reference
