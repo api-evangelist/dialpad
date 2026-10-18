@@ -91,7 +91,7 @@
     - connectors/applications/dialpad
     vendor_link: https://www.dialpad.com/
     builder: Fivetran
-  status: pending-generation
+  status: not-a-workflow
   arazzo: null
 - slug: dialpad-google-workspace-own
   label: Google Workspace (own)
