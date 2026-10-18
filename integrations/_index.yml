@@ -67,3 +67,55 @@
     builder: Pipedream repo (component)
   status: not-a-workflow
   arazzo: null
+- slug: dialpad-fivetran
+  label: Fivetran
+  partner: fivetran
+  partner_name: Fivetran
+  type: marketplace
+  marketplace: fivetran-connectors
+  channel: elt-connector
+  evidence: https://fivetran.com/docs/connectors/applications/dialpad
+  source: edge
+  relationship: ipaas-bridge
+  contract_reference:
+    register: Fivetran connectors (fivetran.com/docs/connectors, docs-sitemap.xml + Partner-Built program)
+    spec_file: null
+    role: elt-connector:fivetran
+    registered_name: Dialpad
+    matched_domain: dialpad.com
+    matched_by: domain
+    detected_by: sweep-data-integration.py
+    detected: '2026-10-18'
+    signal_note: one edge per (provider, platform); connectors, streams, packages and usage are context, never read
+    connector_paths:
+    - connectors/applications/dialpad
+    vendor_link: https://www.dialpad.com/
+    builder: Fivetran
+  status: pending-generation
+  arazzo: null
+- slug: dialpad-google-workspace-own
+  label: Google Workspace (own)
+  partner: google-workspace
+  partner_name: Google Workspace (own)
+  category: Google Workspace app
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://workspace.google.com/marketplace/app/dialpad_addon/1027370902578
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: dialpad-zoom-own
+  label: Zoom (own)
+  partner: zoom
+  partner_name: Zoom (own)
+  category: Zoom app
+  type: marketplace
+  marketplace: own
+  channel: partner-built
+  evidence: https://marketplace.zoom.us/apps/4YTEugsrQdWLJsIjNQT9_Q
+  source: edge
+  relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
