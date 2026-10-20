@@ -16,83 +16,6 @@
   relationship: platform-app
   status: not-a-workflow
   arazzo: null
-- slug: dialpad-zapier
-  label: Zapier
-  partner: zapier
-  partner_name: Zapier
-  type: marketplace
-  marketplace: zapier-directory
-  channel: ipaas-listing
-  evidence: https://zapier.com/apps/dialpad/integrations
-  source: edge
-  relationship: ipaas-bridge
-  contract_reference:
-    register: Zapier app directory (zapier.com/api/v4/apps)
-    spec_file: null
-    role: ipaas-connector:zapier
-    registered_name: Dialpad
-    matched_domain: dialpad.com
-    matched_by: domain
-    detected_by: sweep-workflow-automation.py
-    detected: '2026-10-15'
-    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
-    app_slug: dialpad
-    beta: false
-    builder: unknown (not in the directory record)
-  status: not-a-workflow
-  arazzo: null
-- slug: dialpad-pipedream
-  label: Pipedream
-  partner: pipedream
-  partner_name: Pipedream
-  type: marketplace
-  marketplace: pipedream-components
-  channel: open-source-node
-  evidence: https://github.com/PipedreamHQ/pipedream/tree/94800dd6de6640b942c65ea7ee655f71ac56d438/components/dialpad
-  source: edge
-  relationship: ipaas-bridge
-  contract_reference:
-    register: Pipedream components (PipedreamHQ/pipedream components/)
-    spec_file: null
-    role: ipaas-connector:pipedream
-    registered_name: dialpad
-    matched_domain: dialpad.com
-    matched_by: domain
-    detected_by: sweep-workflow-automation.py
-    detected: '2026-10-15'
-    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
-    app_slug: dialpad
-    actions: false
-    sources: true
-    builder: Pipedream repo (component)
-  status: not-a-workflow
-  arazzo: null
-- slug: dialpad-fivetran
-  label: Fivetran
-  partner: fivetran
-  partner_name: Fivetran
-  type: marketplace
-  marketplace: fivetran-connectors
-  channel: elt-connector
-  evidence: https://fivetran.com/docs/connectors/applications/dialpad
-  source: edge
-  relationship: ipaas-bridge
-  contract_reference:
-    register: Fivetran connectors (fivetran.com/docs/connectors, docs-sitemap.xml + Partner-Built program)
-    spec_file: null
-    role: elt-connector:fivetran
-    registered_name: Dialpad
-    matched_domain: dialpad.com
-    matched_by: domain
-    detected_by: sweep-data-integration.py
-    detected: '2026-10-18'
-    signal_note: one edge per (provider, platform); connectors, streams, packages and usage are context, never read
-    connector_paths:
-    - connectors/applications/dialpad
-    vendor_link: https://www.dialpad.com/
-    builder: Fivetran
-  status: not-a-workflow
-  arazzo: null
 - slug: dialpad-google-workspace-own
   label: Google Workspace (own)
   partner: google-workspace
@@ -130,5 +53,82 @@
   evidence: https://www.zendesk.com/marketplace/apps/support/145515/dialpad/
   source: edge
   relationship: platform-app
+  status: not-a-workflow
+  arazzo: null
+- slug: dialpad-fivetran
+  label: Fivetran
+  partner: fivetran
+  partner_name: Fivetran
+  type: marketplace
+  marketplace: fivetran-connectors
+  channel: elt-connector
+  evidence: https://fivetran.com/docs/connectors/applications/dialpad
+  source: edge
+  relationship: ipaas-bridge
+  contract_reference:
+    register: Fivetran connectors (fivetran.com/docs/connectors, docs-sitemap.xml + Partner-Built program)
+    spec_file: null
+    role: elt-connector:fivetran
+    registered_name: Dialpad
+    matched_domain: dialpad.com
+    matched_by: domain
+    detected_by: sweep-data-integration.py
+    detected: '2026-10-18'
+    signal_note: one edge per (provider, platform); connectors, streams, packages and usage are context, never read
+    connector_paths:
+    - connectors/applications/dialpad
+    vendor_link: https://www.dialpad.com/
+    builder: Fivetran
+  status: not-a-workflow
+  arazzo: null
+- slug: dialpad-zapier
+  label: Zapier
+  partner: zapier
+  partner_name: Zapier
+  type: marketplace
+  marketplace: zapier-directory
+  channel: ipaas-listing
+  evidence: https://zapier.com/apps/dialpad/integrations
+  source: edge
+  relationship: ipaas-bridge
+  contract_reference:
+    register: Zapier app directory (zapier.com/api/v4/apps)
+    spec_file: null
+    role: ipaas-connector:zapier
+    registered_name: Dialpad
+    matched_domain: dialpad.com
+    matched_by: domain
+    detected_by: sweep-workflow-automation.py
+    detected: '2026-10-15'
+    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
+    app_slug: dialpad
+    beta: false
+    builder: unknown (not in the directory record)
+  status: not-a-workflow
+  arazzo: null
+- slug: dialpad-pipedream
+  label: Pipedream
+  partner: pipedream
+  partner_name: Pipedream
+  type: marketplace
+  marketplace: pipedream-components
+  channel: open-source-node
+  evidence: https://github.com/PipedreamHQ/pipedream/tree/d5872355ef27b4efa769f05352f2820c299a456e/components/dialpad
+  source: edge
+  relationship: ipaas-bridge
+  contract_reference:
+    register: Pipedream components (PipedreamHQ/pipedream components/)
+    spec_file: null
+    role: ipaas-connector:pipedream
+    registered_name: dialpad
+    matched_domain: dialpad.com
+    matched_by: domain
+    detected_by: sweep-workflow-automation.py
+    detected: '2026-10-15'
+    signal_note: one edge per (provider, platform); actions, triggers and usage counts are context, never read
+    app_slug: dialpad
+    actions: false
+    sources: true
+    builder: Pipedream repo (component)
   status: not-a-workflow
   arazzo: null
