@@ -1,4 +1,4 @@
-# Dialpad (dialpad)
+# Dialpad
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,158 +66,147 @@
 
 Dialpad is an AI-powered cloud communications platform offering business phone, contact center, video, and messaging. Notable for Dialpad Ai (real-time transcription, sentiment, coaching).
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/dialpad/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/dialpad/refs/heads/main/apis.yml)
+**Areas:** Communications · Voice · Artificial Intelligence · Contact Center · UCaaS
 
-## Tags
+## Dialpad on APIs.io
 
-- Communications
-- Voice
-- AI
-- Contact Center
-- UCaaS
+Everything profiled for Dialpad is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/dialpad/](https://apis.io/providers/dialpad/)** — or go straight to one of the APIs or properties below.
 
-## Timestamps
+### APIs (16)
 
-- **Created:** 2026-05-08
-- **Modified:** 2026-05-30
+- [Dialpad Calls API](https://apis.io/apis/dialpad/dialpad-calls-api/) — Originate, control and read call records and recordings.
+- [Dialpad Users API](https://apis.io/apis/dialpad/dialpad-users-api/) — Provision and manage users, offices and groups.
+- [Dialpad Numbers API](https://apis.io/apis/dialpad/dialpad-numbers-api/) — Manage phone numbers including main lines and assignment.
+- [Dialpad SMS API](https://apis.io/apis/dialpad/dialpad-sms-api/) — Send and receive SMS and MMS.
+- [Dialpad Contact Center API](https://apis.io/apis/dialpad/dialpad-contact-center-api/) — Contact center call routing, queues, agents and stats.
+- [Dialpad Conversation AI API](https://apis.io/apis/dialpad/dialpad-conversation-ai-api/) — Transcripts, summaries, sentiment, and Ai-powered moments.
+- [Dialpad Webhooks API](https://apis.io/apis/dialpad/dialpad-webhooks-api/) — Register and manage webhook subscriptions.
+- [Dialpad Calls API](https://apis.io/apis/dialpad/dialpad-calls-api/) — The Calls API from Dialpad — 7 operation(s) for calls.
+- [Dialpad Contacts API](https://apis.io/apis/dialpad/dialpad-contacts-api/) — The Contacts API from Dialpad — 2 operation(s) for contacts.
+- [Dialpad Offices API](https://apis.io/apis/dialpad/dialpad-offices-api/) — The Offices API from Dialpad — 2 operation(s) for offices.
+- [Dialpad Recordings API](https://apis.io/apis/dialpad/dialpad-recordings-api/) — The Recordings API from Dialpad — 2 operation(s) for recordings.
+- [Dialpad Rooms API](https://apis.io/apis/dialpad/dialpad-rooms-api/) — The Rooms API from Dialpad — 2 operation(s) for rooms.
+- [Dialpad Subscriptions API](https://apis.io/apis/dialpad/dialpad-subscriptions-api/) — The Subscriptions API from Dialpad — 3 operation(s) for subscriptions.
+- [Dialpad Transcripts API](https://apis.io/apis/dialpad/dialpad-transcripts-api/) — The Transcripts API from Dialpad — 2 operation(s) for transcripts.
+- [Dialpad Users API](https://apis.io/apis/dialpad/dialpad-users-api/) — The Users API from Dialpad — 3 operation(s) for users.
+- [Dialpad Webhooks API](https://apis.io/apis/dialpad/dialpad-webhooks-api/) — The Webhooks API from Dialpad — 2 operation(s) for webhooks.
 
-## APIs
+### Published properties
 
-### Dialpad Calls API
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Originate, control and read call records and recordings.
+#### GraphQL (1)
 
-- **Human URL:** [https://developers.dialpad.com/reference](https://developers.dialpad.com/reference)
-- **Base URL:** `https://dialpad.com/api/v2`
+GraphQL schemas.
 
-#### Tags
+- [Moved to /providers/dialpad/](https://apis.io/graphqls/dialpad/dialpad-graphql/)
 
-- Calls
-- Voice
+#### Agentic access (1)
 
-#### Properties
+Which operations an agent can call, which act, and which need a human in the loop.
 
-- [Documentation](https://developers.dialpad.com/reference)
-- [Postman Collection](collections/dialpad.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dialpad.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+- [Dialpad Agentic Access](https://apis.io/agentic-access/dialpad/dialpad-agentic-access/)
 
-### Dialpad Users API
+#### Collections (11)
 
-Provision and manage users, offices and groups.
+Postman and Open Collection request collections.
 
-- **Human URL:** [https://developers.dialpad.com/reference](https://developers.dialpad.com/reference)
-- **Base URL:** `https://dialpad.com/api/v2`
+- [Dialpad API](https://apis.io/collections/dialpad/open-dialpad/)
+- [Dialpad Webhook Events API](https://apis.io/collections/dialpad/open-dialpad-asyncapi/)
+- [Dialpad Calls API](https://apis.io/collections/dialpad/open-dialpad-calls-api/)
+- [Dialpad Calls Contacts API](https://apis.io/collections/dialpad/open-dialpad-contacts-api/)
+- [Dialpad Calls Offices API](https://apis.io/collections/dialpad/open-dialpad-offices-api/)
+- [Dialpad Calls Recordings API](https://apis.io/collections/dialpad/open-dialpad-recordings-api/)
+- [Dialpad Calls Rooms API](https://apis.io/collections/dialpad/open-dialpad-rooms-api/)
+- [Dialpad Calls Subscriptions API](https://apis.io/collections/dialpad/open-dialpad-subscriptions-api/)
+- [Dialpad Calls Transcripts API](https://apis.io/collections/dialpad/open-dialpad-transcripts-api/)
+- [Dialpad Calls Users API](https://apis.io/collections/dialpad/open-dialpad-users-api/)
+- [Dialpad Calls Webhooks API](https://apis.io/collections/dialpad/open-dialpad-webhooks-api/)
 
-#### Tags
+#### Security (4)
 
-- Users
+Authentication, trust centre, and vulnerability disclosure.
 
-#### Properties
+- [Dialpad Authentication](https://apis.io/security/dialpad/dialpad-authentication/)
+- [Dialpad Domain Security](https://apis.io/security/dialpad/dialpad-domain-security/)
+- [Dialpad Trust Center](https://apis.io/security/dialpad/dialpad-trust-center/)
+- [Dialpad Vulnerability Disclosure](https://apis.io/security/dialpad/dialpad-vulnerability-disclosure/)
 
-- [Documentation](https://developers.dialpad.com/reference)
-- [Postman Collection](collections/dialpad.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dialpad.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+#### Plans and pricing (1)
 
-### Dialpad Numbers API
+Published plans, tiers and prices.
 
-Manage phone numbers including main lines and assignment.
+- [Dialpad Plans Pricing](https://apis.io/plans/dialpad/dialpad-plans-pricing/)
 
-- **Human URL:** [https://developers.dialpad.com/reference](https://developers.dialpad.com/reference)
-- **Base URL:** `https://dialpad.com/api/v2`
+#### Rate limits (1)
 
-#### Tags
+Published request limits.
 
-- Numbers
+- [Dialpad Rate Limits](https://apis.io/rate-limits/dialpad/dialpad-rate-limits/)
 
-#### Properties
+#### FinOps (1)
 
-- [Documentation](https://developers.dialpad.com/reference)
-- [Postman Collection](collections/dialpad.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dialpad.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
+What the API costs to run, by operation.
 
-### Dialpad SMS API
+- [Dialpad Finops](https://apis.io/finops/dialpad/dialpad-finops/)
 
-Send and receive SMS and MMS.
+## Where to find this API
 
-- **Human URL:** [https://developers.dialpad.com/reference](https://developers.dialpad.com/reference)
-- **Base URL:** `https://dialpad.com/api/v2`
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-#### Tags
-
-- SMS
-
-#### Properties
-
-- [Documentation](https://developers.dialpad.com/reference)
-- [Postman Collection](collections/dialpad.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dialpad.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Dialpad Contact Center API
-
-Contact center call routing, queues, agents and stats.
-
-- **Human URL:** [https://developers.dialpad.com/reference](https://developers.dialpad.com/reference)
-- **Base URL:** `https://dialpad.com/api/v2`
-
-#### Tags
-
-- Contact Center
-- CCaaS
-
-#### Properties
-
-- [Documentation](https://developers.dialpad.com/reference)
-- [Postman Collection](collections/dialpad.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dialpad.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Dialpad Conversation AI API
-
-Transcripts, summaries, sentiment, and Ai-powered moments.
-
-- **Human URL:** [https://developers.dialpad.com/reference](https://developers.dialpad.com/reference)
-- **Base URL:** `https://dialpad.com/api/v2`
-
-#### Tags
-
-- AI
-- Transcription
-
-#### Properties
-
-- [Documentation](https://developers.dialpad.com/reference)
-- [Postman Collection](collections/dialpad.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dialpad.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-### Dialpad Webhooks API
-
-Register and manage webhook subscriptions.
-
-- **Human URL:** [https://developers.dialpad.com/reference](https://developers.dialpad.com/reference)
-- **Base URL:** `https://dialpad.com/api/v2`
-
-#### Tags
-
-- Webhooks
-
-#### Properties
-
-- [Documentation](https://developers.dialpad.com/reference)
-- [AsyncAPI](openapi/dialpad-asyncapi.yml) — [AsyncAPI Specification](https://www.asyncapi.com/docs/reference/specification/latest)
-- [Postman Collection](collections/dialpad.postman_collection.json) — [Postman Collection 2.1](https://schema.getpostman.com/json/collection/v2.1.0/collection.json)
-- [Open Collection](collections/dialpad.opencollection.json) — [Open Collection 1.0](https://schema.opencollection.com/opencollection/v1.0.0.json)
-
-## Common Properties
-
-- [GitHub Organization](https://github.com/dialpad)
-- [LinkedIn](https://www.linkedin.com/company/dialpad)
 - [Website](https://www.dialpad.com/)
-- [Plans](plans/dialpad-plans-pricing.yml)
-- [Rate Limits](rate-limits/dialpad-rate-limits.yml)
-- [Fin Ops](finops/dialpad-finops.yml)
-- [Integrations](https://www.dialpad.com/integrations/)
-- [L L Ms Txt](https://developers.dialpad.com/llms.txt)
+- [Blog](https://www.dialpad.com/blog/)
+- [GitHub](https://github.com/dialpad)
 
-## Maintainers
+## API Evangelist rating
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Kin Score 27.7** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 64.3 |
+| Contract quality | 54.6 |
+| Contract governance | 0.0 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 19.0 |
+| Access clarity | 13.2 |
+
+**Agent readiness 21.8** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | unknown |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 20.9** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/dialpad/](https://apis.io/providers/dialpad/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Dialpad: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/dialpad/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
